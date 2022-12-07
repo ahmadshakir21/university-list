@@ -10,11 +10,18 @@ class UniversityHttpService {
       scheme: 'http',
       host: 'universities.hipolabs.com',
       path: 'search',
-      queryParameters: {'country': 'iraq'});
-  Future<UniversityModel> fetchUniversityList() async {
+      queryParameters: {'country': 'greece'});
+  Future<List<UniversityModel>> fetchUniversityList() async {
     http.Response response = await http.get(uri);
 
-    UniversityModel universitymodel = UniversityModel.fromJson(response.body);
+    List result = json.decode(response.body) as List;
+    List<UniversityModel> universityListModel =
+        result.map((e) => UniversityModel.fromMap(e)).toList();
+
+    // Map result = json.decode(response.body) as Map;
+    // List listResult = result["data"] as List;
+    // List<UniversityModel> universityListModel =
+    //     listResult.map((e) => UniversityModel.fromMap(e)).toList();
 
     // Post.fromJson(jsonDecode(response.body))
 
@@ -26,6 +33,6 @@ class UniversityHttpService {
     // var streetsFromJson = parsedJson['streets'];
     // List<String> streetsList = new List<String>.from(streetsFromJson);
 
-    return universitymodel;
+    return universityListModel;
   }
 }

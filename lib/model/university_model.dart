@@ -31,8 +31,12 @@ class UniversityModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UniversityModel.fromJson(String source) =>
-      UniversityModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // List<UniversityModel> fromJson(String source) {
+  //   List result = json.decode(source) as List<Map<String, dynamic>>;
+  //   List<UniversityModel> universities =
+  //       result.map((e) => UniversityModel.fromMap(e)).toList();
+  //   return universities;
+  // }
 
   @override
   String toString() {

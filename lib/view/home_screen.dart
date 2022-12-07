@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder<UniversityModel>(
+      body: FutureBuilder<List<UniversityModel>>(
         future: universityHttpService.fetchUniversityList(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -29,9 +29,12 @@ class HomeScreen extends StatelessWidget {
             );
           }
           return ListView.builder(
-            itemCount: snapshot.data!.name.length,
-            itemBuilder: (context, index) =>
-                ExpansionTile(title: Text(snapshot.data!.name[index])),
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final university = snapshot.data![index];
+
+              return ExpansionTile(title: Text(university.name));
+            },
           );
         },
       ),
